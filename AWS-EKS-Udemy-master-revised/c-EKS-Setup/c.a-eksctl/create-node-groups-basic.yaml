@@ -1,0 +1,19 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: EKS-cluster-1
+  region:  eu-west-1
+
+managedNodeGroups:
+#  - name: ng-mixed
+#    instanceType: t2.small
+#    desiredCapacity: 3
+#    ssh:
+#      publicKeyName: eks-course
+  - name: ng-spot
+    instanceTypes: ["t3.small"]
+    spot: true
+    desiredCapacity: 3
+
+    

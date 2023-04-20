@@ -2,28 +2,30 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: EKS-course-cluster
-  region: us-west-2
+  name: EKS-cluster-1
+  region: eu-west-1
 
-nodeGroups:
-  - name: scale-west2c
+managedNodeGroups:
+  - name: scale-west1c
+    spot: true
     instanceType: t2.small
     desiredCapacity: 1
     maxSize: 10
-    availabilityZones: ["us-west-2c"]
+    availabilityZones: ["eu-west-1c"]
     iam:
       withAddonPolicies:
         autoScaler: true
     labels:
-      nodegroup-type: stateful-west2c
+      nodegroup-type: stateful-west1c
       instance-type: onDemand
     ssh: # use existing EC2 key
       publicKeyName: eks-course
-  - name: scale-west2a
+  - name: scale-west1a
+    spot: true
     instanceType: t2.small
     desiredCapacity: 1
     maxSize: 10
-    availabilityZones: ["us-west-2a"]
+    availabilityZones: ["eu-west-1a"]
     iam:
       withAddonPolicies:
         autoScaler: true
@@ -35,11 +37,8 @@ nodeGroups:
   - name: scale-spot
     desiredCapacity: 1
     maxSize: 10
-    instancesDistribution:
-      instanceTypes: ["t2.small", "t3.small"]
-      onDemandBaseCapacity: 0
-      onDemandPercentageAboveBaseCapacity: 0
-    availabilityZones: ["us-west-2c", "us-west-2b"]
+    spot: true
+    availabilityZones: ["eu-west-1c", "eu-west-1b"]
     iam:
       withAddonPolicies:
         autoScaler: true
@@ -48,5 +47,3 @@ nodeGroups:
       instance-type: spot
     ssh: 
       publicKeyName: eks-course
-
-availabilityZones: ["us-west-2c", "us-west-2b"]
