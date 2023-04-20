@@ -21,3 +21,10 @@ details of a particular service:
 ```
 kubectl describe service <servicename>
 ```
+
+## commands to clean up project
+
+kubectl delete deployment -l app=redis 
+kubectl delete service -l app=redis
+kubectl delete deployment frontend
+kubectl delete service frontend
